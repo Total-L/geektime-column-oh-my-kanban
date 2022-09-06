@@ -62,6 +62,10 @@ const kanbanCardStyles = css`
   list-style: none;
   background-color: rgba(255, 255, 255, 0.4);
   text-align: left;
+
+  &:hover {
+    box-shadow: 0 0.3rem 0.3rem rgba(0, 0, 0, 0.3), inset 0 1px #fff;
+  }
 `;
 const kanbanCardTitleStyles = css`
   min-height: 3rem;
