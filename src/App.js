@@ -1,9 +1,17 @@
+/** @jsxImportSource @emotion/react */
 import React, { useState } from 'react';
+import { css } from '@emotion/react';
 import logo from './logo.svg';
 import './App.css';
 
 const KanbanBoard = ({ children }) => (
-  <main className="kanban-board">{children}</main>
+  <main css={css`
+    flex: 10;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    margin: 0 1rem 1rem;
+  `}>{children}</main>
 );
 
 const KanbanColumn = ({ children, className, title }) => {
