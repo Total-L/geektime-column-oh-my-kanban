@@ -154,7 +154,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
       </header>
       <KanbanBoard>
-      <KanbanColumn bgColor={COLUMN_BG_COLORS.todo} title={
+        <KanbanColumn bgColor={COLUMN_BG_COLORS.todo} title={
           <>
             待处理<button onClick={handleAdd}
               disabled={showAdd}>&#8853; 添加新卡片</button>
