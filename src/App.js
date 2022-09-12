@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { css } from '@emotion/react';
 import logo from './logo.svg';
 import './App.css';
@@ -121,6 +121,10 @@ const KanbanNewCard = ({ onSubmit }) => {
       onSubmit(title);
     }
   };
+  const inputElem = useRef(null);
+  useEffect(() => {
+    inputElem.current.focus();
+  }, []);
 
   return (
     <li css={kanbanCardStyles}>
@@ -132,7 +136,7 @@ const KanbanNewCard = ({ onSubmit }) => {
           width: 80%;
         }
       `}>
-        <input type="text" value={title}
+        <input type="text" value={title} ref={inputElem}
           onChange={handleChange} onKeyDown={handleKeyDown} />
       </div>
     </li>
