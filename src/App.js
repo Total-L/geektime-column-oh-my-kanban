@@ -149,6 +149,8 @@ const COLUMN_BG_COLORS = {
   done: '#C0E8BA'
 };
 
+const DATA_STORE_KEY = 'kanban-data-store';
+
 function App() {
   const [showAdd, setShowAdd] = useState(false);
   const [todoList, setTodoList] = useState([
@@ -166,6 +168,17 @@ function App() {
     { title: '开发任务-2', status: '2022-06-24 18:15' },
     { title: '测试任务-1', status: '2022-07-03 18:15' }  
   ]);
+  useEffect(() => {
+    const data = window.localStorage.getItem(DATA_STORE_KEY);
+    setTimeout(() => {
+      if (data) {
+        const kanbanColumnData = JSON.parse(data);
+        setTodoList(kanbanColumnData.todoList);
+        setOngoingList(kanbanColumnData.ongoingList);
+        setDoneList(kanbanColumnData.doneList);
+      }
+    }, 1000);
+  },[]);
   const handleAdd = (evt) => {
     setShowAdd(true);
   };
