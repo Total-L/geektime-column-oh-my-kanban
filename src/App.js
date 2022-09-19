@@ -144,6 +144,7 @@ const KanbanNewCard = ({ onSubmit }) => {
 };
 
 const COLUMN_BG_COLORS = {
+  loading: '#E3E3E3',
   todo: '#C9AF97',
   ongoing: '#FFE799',
   done: '#C0E8BA'
@@ -168,6 +169,7 @@ function App() {
     { title: '开发任务-2', status: '2022-06-24 18:15' },
     { title: '测试任务-1', status: '2022-07-03 18:15' }  
   ]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const data = window.localStorage.getItem(DATA_STORE_KEY);
     setTimeout(() => {
@@ -177,6 +179,7 @@ function App() {
         setOngoingList(kanbanColumnData.ongoingList);
         setDoneList(kanbanColumnData.doneList);
       }
+      setIsLoading(false);
     }, 1000);
   },[]);
   const handleSaveAll = () => {
@@ -205,21 +208,25 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
       </header>
       <KanbanBoard>
-        <KanbanColumn bgColor={COLUMN_BG_COLORS.todo} title={
-          <>
-            待处理<button onClick={handleAdd}
-              disabled={showAdd}>&#8853; 添加新卡片</button>
-          </>
-        }>
-          { showAdd && <KanbanNewCard onSubmit={handleSubmit} /> }
-          { todoList.map(props => <KanbanCard key={props.title} {...props} />) }
-        </KanbanColumn>
-        <KanbanColumn bgColor={COLUMN_BG_COLORS.ongoing} title="进行中">
-          { ongoingList.map(props => <KanbanCard key={props.title} {...props} />) }
-        </KanbanColumn>
-        <KanbanColumn bgColor={COLUMN_BG_COLORS.done} title="已完成">
-          { doneList.map(props => <KanbanCard key={props.title} {...props} />) }
-        </KanbanColumn>
+        {isLoading ? (
+          <KanbanColumn title="读取中..." bgColor={COLUMN_BG_COLORS.loading} />
+        ) : (<>
+          <KanbanColumn bgColor={COLUMN_BG_COLORS.todo} title={
+            <>
+              待处理<button onClick={handleAdd}
+                disabled={showAdd}>&#8853; 添加新卡片</button>
+            </>
+          }>
+            { showAdd && <KanbanNewCard onSubmit={handleSubmit} /> }
+            { todoList.map(props => <KanbanCard key={props.title} {...props} />) }
+          </KanbanColumn>
+          <KanbanColumn bgColor={COLUMN_BG_COLORS.ongoing} title="进行中">
+            { ongoingList.map(props => <KanbanCard key={props.title} {...props} />) }
+          </KanbanColumn>
+          <KanbanColumn bgColor={COLUMN_BG_COLORS.done} title="已完成">
+            { doneList.map(props => <KanbanCard key={props.title} {...props} />) }
+          </KanbanColumn>
+        </>)}
       </KanbanBoard>
     </div>
   );
