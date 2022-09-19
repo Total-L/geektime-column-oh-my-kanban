@@ -3,16 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { css } from '@emotion/react';
 import logo from './logo.svg';
 import './App.css';
-
-const KanbanBoard = ({ children }) => (
-  <main css={css`
-    flex: 10;
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    margin: 0 1rem 1rem;
-  `}>{children}</main>
-);
+import KanbanBoard from './KanbanBoard';
 
 const KanbanColumn = ({
   children,
