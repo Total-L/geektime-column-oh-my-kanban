@@ -183,7 +183,6 @@ const COLUMN_BG_COLORS = {
   ongoing: '#FFE799',
   done: '#C0E8BA'
 };
-
 const DATA_STORE_KEY = 'kanban-data-store';
 const COLUMN_KEY_TODO = 'todo';
 const COLUMN_KEY_ONGOING = 'ongoing';
@@ -204,7 +203,7 @@ function App() {
   ]);
   const [doneList, setDoneList ] = useState([
     { title: '开发任务-2', status: '2022-06-24 18:15' },
-    { title: '测试任务-1', status: '2022-07-03 18:15' }  
+    { title: '测试任务-1', status: '2022-07-03 18:15' }
   ]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -262,7 +261,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      <h1>我的看板 <button onClick={handleSaveAll}>保存所有卡片</button></h1>
+        <h1>我的看板 <button onClick={handleSaveAll}>保存所有卡片</button></h1>
         <img src={logo} className="App-logo" alt="logo" />
       </header>
       <KanbanBoard>
@@ -281,12 +280,12 @@ function App() {
             setIsDragTarget={(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_TODO : null)}
             onDrop={handleDrop}
           >
-            { showAdd && <KanbanNewCard onSubmit={handleSubmit} /> }
-            {todoList.map((props) => (
+            {showAdd && <KanbanNewCard onSubmit={handleSubmit} />}
+            {todoList.map(props => (
               <KanbanCard
                 key={props.title}
-                {...props}
                 onDragStart={() => setDraggedItem(props)}
+                {...props}
               />
             ))}
           </KanbanColumn>
@@ -297,11 +296,11 @@ function App() {
             setIsDragTarget={(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_ONGOING : null)}
             onDrop={handleDrop}
           >
-            {ongoingList.map((props) => (
+            {ongoingList.map(props => (
               <KanbanCard
                 key={props.title}
-                {...props}
                 onDragStart={() => setDraggedItem(props)}
+                {...props}
               />
             ))}
           </KanbanColumn>
@@ -315,8 +314,8 @@ function App() {
             {doneList.map((props) => (
               <KanbanCard
                 key={props.title}
-                {...props}
                 onDragStart={() => setDraggedItem(props)}
+                {...props}
               />
             ))}
           </KanbanColumn>
