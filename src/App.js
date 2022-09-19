@@ -16,39 +16,55 @@ const KanbanBoard = ({ children }) => (
 
 const KanbanColumn = ({ children, bgColor, title }) => {
   return (
-    <section css={css`
-      flex: 1 1;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid gray;
-      border-radius: 1rem;
-      background-color: ${bgColor};
+    <section
+      onDragOver={(evt) => {
+        evt.preventDefault();
+        evt.dataTransfer.dropEffect = 'move';
+      }}
+      onDragLeave={(evt) => {
+        evt.preventDefault();
+        evt.dataTransfer.dropEffect = 'none';
+      }}
+      onDrop={(evt) => {
+        evt.preventDefault();
+      }}
+      onDragEnd={(evt) => {
+        evt.preventDefault();
+      }}
+      css={css`
+        flex: 1 1;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid gray;
+        border-radius: 1rem;
+        background-color: ${bgColor};
 
-      & > h2 {
-        margin: 0.6rem 1rem;
-        padding-bottom: 0.6rem;
-        border-bottom: 1px solid gray;
+        & > h2 {
+          margin: 0.6rem 1rem;
+          padding-bottom: 0.6rem;
+          border-bottom: 1px solid gray;
 
-        & > button {
-          float: right;
-          margin-top: 0.2rem;
-          padding: 0.2rem 0.5rem;
-          border: 0;
-          border-radius: 1rem;
-          height: 1.8rem;
-          line-height: 1rem;
-          font-size: 1rem;
+          & > button {
+            float: right;
+            margin-top: 0.2rem;
+            padding: 0.2rem 0.5rem;
+            border: 0;
+            border-radius: 1rem;
+            height: 1.8rem;
+            line-height: 1rem;
+            font-size: 1rem;
+          }
         }
-      }
 
-      & > ul {
-        flex: 1;
-        flex-basis: 0;
-        margin: 1rem;
-        padding: 0;
-        overflow: auto;
-      }
-    `}>
+        & > ul {
+          flex: 1;
+          flex-basis: 0;
+          margin: 1rem;
+          padding: 0;
+          overflow: auto;
+        }
+      `}
+    >
       <h2>{title}</h2>
       <ul>{children}</ul>
     </section>
@@ -98,9 +114,13 @@ const KanbanCard = ({ title, status }) => {
       clearInterval(intervalId);
     };
   }, [status]);
+  const handleDragStart = (evt) => {
+    evt.dataTransfer.effectAllowed = 'move';
+    evt.dataTransfer.setData('text/plain', title);
+  };
 
   return (
-    <li css={kanbanCardStyles}>
+    <li css={kanbanCardStyles} draggable onDragStart={handleDragStart}>
       <div css={kanbanCardTitleStyles}>{title}</div>
       <div css={css`
         text-align: right;
