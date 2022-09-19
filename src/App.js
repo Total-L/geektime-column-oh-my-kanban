@@ -179,6 +179,14 @@ function App() {
       }
     }, 1000);
   },[]);
+  const handleSaveAll = () => {
+    const data = JSON.stringify({
+      todoList,
+      ongoingList,
+      doneList
+    });
+    window.localStorage.setItem(DATA_STORE_KEY, data);
+  };
   const handleAdd = (evt) => {
     setShowAdd(true);
   };
@@ -193,7 +201,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>我的看板</h1>
+      <h1>我的看板 <button onClick={handleSaveAll}>保存所有卡片</button></h1>
         <img src={logo} className="App-logo" alt="logo" />
       </header>
       <KanbanBoard>
