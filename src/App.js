@@ -2,7 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import KanbanBoard from './KanbanBoard';
+import KanbanBoard, {
+  COLUMN_KEY_DONE,
+  COLUMN_KEY_ONGOING,
+  COLUMN_KEY_TODO,
+} from './KanbanBoard';
 
 const DATA_STORE_KEY = 'kanban-data-store';
 
@@ -43,11 +47,18 @@ function App() {
     });
     window.localStorage.setItem(DATA_STORE_KEY, data);
   };
-  const handleAdd = (newCard) => {
-    setTodoList(currentTodoList => [
-      newCard,
-      ...currentTodoList
-    ]);
+  const updaters = {
+    [COLUMN_KEY_TODO]: setTodoList,
+    [COLUMN_KEY_ONGOING]: setOngoingList,
+    [COLUMN_KEY_DONE]: setDoneList
+  };
+  const handleAdd = (column, newCard) => {
+    updaters[column]((currentStat) => [newCard, ...currentStat]);
+  };
+  const handleRemove = (column, cardToRemove) => {
+    updaters[column]((currentStat) =>
+      currentStat.filter((item) => !Object.is(item, cardToRemove))
+    );
   };
 
   return (
@@ -62,7 +73,7 @@ function App() {
         ongoingList={ongoingList}
         doneList={doneList}
         onAdd={handleAdd}
-        onDrop={(evt) => {}}
+        onRemove={handleRemove}
       />
     </div>
   );

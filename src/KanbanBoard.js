@@ -17,9 +17,9 @@ const COLUMN_BG_COLORS = {
   ongoing: '#FFE799',
   done: '#C0E8BA'
 };
-const COLUMN_KEY_TODO = 'todo';
-const COLUMN_KEY_ONGOING = 'ongoing';
-const COLUMN_KEY_DONE = 'done';
+export const COLUMN_KEY_TODO = 'todo';
+export const COLUMN_KEY_ONGOING = 'ongoing';
+export const COLUMN_KEY_DONE = 'done';
 
 export default function KanbanBoard({
   isLoading = true,
@@ -27,11 +27,18 @@ export default function KanbanBoard({
   ongoingList,
   doneList,
   onAdd,
-  onDrop
+  onRemove
 }) {
   const [draggedItem, setDraggedItem] = useState(null);
   const [dragSource, setDragSource] = useState(null);
   const [dragTarget, setDragTarget] = useState(null);
+  const handleDrop = (evt) => {
+    if (!draggedItem || !dragSource || !dragTarget || dragSource === dragTarget) {
+      return;
+    }
+    dragSource && onRemove(dragSource, draggedItem);
+    dragTarget && onAdd(dragTarget, draggedItem);
+  };
 
   return (
     <main css={kanbanBoardStyles}>
@@ -45,8 +52,8 @@ export default function KanbanBoard({
           setDraggedItem={setDraggedItem}
           setIsDragSource={(isSrc) => setDragSource(isSrc ? COLUMN_KEY_TODO : null)}
           setIsDragTarget={(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_TODO : null)}
-          onAdd={onAdd}
-          onDrop={onDrop}
+          onAdd={onAdd.bind(null, COLUMN_KEY_TODO)}
+          onDrop={handleDrop}
           cardList={todoList}
         />
         <KanbanColumn
@@ -55,7 +62,7 @@ export default function KanbanBoard({
           setDraggedItem={setDraggedItem}
           setIsDragSource={(isSrc) => setDragSource(isSrc ? COLUMN_KEY_ONGOING : null)}
           setIsDragTarget={(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_ONGOING : null)}
-          onDrop={onDrop}
+          onDrop={handleDrop}
           cardList={ongoingList}
         />
         <KanbanColumn
@@ -64,7 +71,7 @@ export default function KanbanBoard({
           setDraggedItem={setDraggedItem}
           setIsDragSource={(isSrc) => setDragSource(isSrc ? COLUMN_KEY_DONE : null)}
           setIsDragTarget={(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_DONE : null)}
-          onDrop={onDrop}
+          onDrop={handleDrop}
           cardList={doneList}
         />
       </>)}
