@@ -53,9 +53,9 @@ function App() {
     });
     window.localStorage.setItem(DATA_STORE_KEY, data);
   };
-  const handleSubmit = (title) => {
+  const handleAdd = (newCard) => {
     setTodoList(currentTodoList => [
-      { title, status: new Date().toString() },
+      newCard,
       ...currentTodoList
     ]);
   };
@@ -98,7 +98,7 @@ function App() {
             setDraggedItem={setDraggedItem}
             setIsDragSource={(isSrc) => setDragSource(isSrc ? COLUMN_KEY_TODO : null)}
             setIsDragTarget={(isTgt) => setDragTarget(isTgt ? COLUMN_KEY_TODO : null)}
-            onAdd={handleSubmit}
+            onAdd={handleAdd}
             onDrop={handleDrop}
             cardList={todoList}
           />
