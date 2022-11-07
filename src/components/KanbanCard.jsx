@@ -24,7 +24,9 @@ const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
 const UPDATE_INTERVAL = MINUTE;
 
-export default function KanbanCard({ title, status, onDragStart, onRemove }) {
+export default function KanbanCard({
+  title, status, onDragStart, onRemove,
+}) {
   const [displayTime, setDisplayTime] = useState(status);
   useEffect(() => {
     const updateDisplayTime = () => {
@@ -56,13 +58,20 @@ export default function KanbanCard({ title, status, onDragStart, onRemove }) {
   return (
     <li css={kanbanCardStyles} draggable onDragStart={handleDragStart}>
       <div css={kanbanCardTitleStyles}>{title}</div>
-      <div css={css`
+      <div
+        css={css`
         text-align: right;
         font-size: 0.8rem;
         color: #333;
-      `} title={status}>{displayTime} {isAdmin && onRemove && (
-        <button onClick={() => onRemove({title})}>X</button>
-      )}</div>
+      `}
+        title={status}
+      >
+        {displayTime}
+        {' '}
+        {isAdmin && onRemove && (
+        <button onClick={() => onRemove({ title })}>X</button>
+        )}
+      </div>
     </li>
   );
 }

@@ -15,16 +15,16 @@ function App() {
     { title: '开发任务-1', status: '2022-05-22 18:15' },
     { title: '开发任务-3', status: '2022-06-22 18:15' },
     { title: '开发任务-5', status: '2022-07-22 18:15' },
-    { title: '测试任务-3', status: '2022-07-23 18:15' }
+    { title: '测试任务-3', status: '2022-07-23 18:15' },
   ]);
-  const [ongoingList, setOngoingList ] = useState([
+  const [ongoingList, setOngoingList] = useState([
     { title: '开发任务-4', status: '2022-05-22 18:15' },
     { title: '开发任务-6', status: '2022-06-22 18:15' },
-    { title: '测试任务-2', status: '2022-07-22 18:15' }
+    { title: '测试任务-2', status: '2022-07-22 18:15' },
   ]);
-  const [doneList, setDoneList ] = useState([
+  const [doneList, setDoneList] = useState([
     { title: '开发任务-2', status: '2022-06-24 18:15' },
-    { title: '测试任务-1', status: '2022-07-03 18:15' }
+    { title: '测试任务-1', status: '2022-07-03 18:15' },
   ]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -38,27 +38,25 @@ function App() {
       }
       setIsLoading(false);
     }, 1000);
-  },[]);
+  }, []);
   const handleSaveAll = () => {
     const data = JSON.stringify({
       todoList,
       ongoingList,
-      doneList
+      doneList,
     });
     window.localStorage.setItem(DATA_STORE_KEY, data);
   };
   const updaters = {
     [COLUMN_KEY_TODO]: setTodoList,
     [COLUMN_KEY_ONGOING]: setOngoingList,
-    [COLUMN_KEY_DONE]: setDoneList
+    [COLUMN_KEY_DONE]: setDoneList,
   };
   const handleAdd = (column, newCard) => {
     updaters[column]((currentStat) => [newCard, ...currentStat]);
   };
   const handleRemove = (column, cardToRemove) => {
-    updaters[column]((currentStat) =>
-      currentStat.filter((item) => item.title !== cardToRemove.title)
-    );
+    updaters[column]((currentStat) => currentStat.filter((item) => item.title !== cardToRemove.title));
   };
   const [isAdmin, setIsAdmin] = useState(false);
   const handleToggleAdmin = (evt) => {
@@ -69,7 +67,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>
-          我的看板 
+          我的看板
           <button onClick={handleSaveAll}>保存所有卡片</button>
           <label>
             <input type="checkbox" value={isAdmin} onChange={handleToggleAdmin} />

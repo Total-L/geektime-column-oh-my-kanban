@@ -46,7 +46,7 @@ export default function KanbanColumn({
   setDraggedItem,
   setIsDragSource = () => {},
   setIsDragTarget = () => {},
-  title
+  title,
 }) {
   const [showAdd, setShowAdd] = useState(false);
   const handleAdd = (evt) => {
@@ -59,27 +59,27 @@ export default function KanbanColumn({
 
   return (
     <section
-      data-testid='kanban-column'
+      data-testid="kanban-column"
       onDragStart={() => setIsDragSource(true)}
       onDragOver={(evt) => {
         evt.preventDefault();
         evt.dataTransfer.dropEffect = 'move';
         setIsDragTarget(true);
-      } }
+      }}
       onDragLeave={(evt) => {
         evt.preventDefault();
         evt.dataTransfer.dropEffect = 'none';
         setIsDragTarget(false);
-      } }
+      }}
       onDrop={(evt) => {
         evt.preventDefault();
         onDrop && onDrop(evt);
-      } }
+      }}
       onDragEnd={(evt) => {
         evt.preventDefault();
         setIsDragSource(false);
         setIsDragTarget(false);
-      } }
+      }}
       css={css`
         ${kanbanColumnStyles}
         background-color: ${bgColor};

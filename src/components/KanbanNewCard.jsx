@@ -27,9 +27,15 @@ export default function KanbanNewCard({ onSubmit }) {
         & > input[type="text"] {
           width: 80%;
         }
-      `}>
-        <input type="text" value={title} ref={inputElem}
-          onChange={handleChange} onKeyDown={handleKeyDown} />
+      `}
+      >
+        <input
+          type="text"
+          value={title}
+          ref={inputElem}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+        />
       </div>
     </li>
   );
