@@ -1,10 +1,10 @@
-# 看板应用 `oh-my-banban`
+# 看板应用 `oh-my-kanban`
 
-此项目包含了**极客时间**专栏《***现代 React Web 开发实战***》看板应用`oh-my-banban`的全部源码。
+此项目包含了**极客时间**专栏《***现代 React Web 开发实战***》看板应用`oh-my-kanban`的全部源码。
 
-专栏首页：https://time.geekbang.org/column/intro/100119601
+专栏首页：[https://time.geekbang.org/column/intro/100119601](http://gk.link/a/11Oax)
 
-在第二模块《看板应用》中，专栏带领同学们从零开始，快速搭建一个React Web应用项目`oh-my-banban`，然后在扩展应用功能的过程中，一步一步加入新版React中的各个重要概念和对应API，以提升学习效果。
+在第二模块《看板应用》中，专栏带领同学们从零开始，快速搭建一个React Web应用项目`oh-my-kanban`，然后在扩展应用功能的过程中，一步一步加入新版React中的各个重要概念和对应API，以提升学习效果。
 
 ## 如何使用
 
